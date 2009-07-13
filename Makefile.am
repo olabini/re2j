@@ -69,7 +69,7 @@ parser.cc: $(top_srcdir)/parser.y
 	if cmp -s $(top_srcdir)/y.tab.h $(top_srcdir)/bootstrap/y.tab.h; then :; else cp -f $(top_srcdir)/y.tab.h $(top_srcdir)/bootstrap/y.tab.h; fi
 
 scanner.cc: $(top_srcdir)/scanner.re
-	@if test -x ./re2j$(EXEEXT); then \
+	@if test -x ./re2c$(EXEEXT); then \
 		echo "re2j $(RE2CFLAGS) -o $@ $(top_srcdir)/scanner.re"; \
 		./re2j $(RE2CFLAGS) -o $@ $(top_srcdir)/scanner.re && cp $@ $(top_srcdir)/bootstrap/; \
 	else \

@@ -356,7 +356,7 @@ yy46:
 	yych = *++YYCURSOR;
 	if (yych != '2') goto yy12;
 	yych = *++YYCURSOR;
-	if (yych != 'c') goto yy12;
+	if (yych != 'j') goto yy12;
 	++YYCURSOR;
 	{
 					if (rFlag)
@@ -376,7 +376,7 @@ yy46:
 				}
 yy56:
 	yych = *++YYCURSOR;
-	if (yych != 'c') goto yy12;
+	if (yych != 'j') goto yy12;
 	++YYCURSOR;
 	{
 					if (rFlag)
@@ -406,7 +406,7 @@ yy59:
 	yych = *++YYCURSOR;
 	if (yych != '2') goto yy12;
 	yych = *++YYCURSOR;
-	if (yych != 'c') goto yy12;
+	if (yych != 'j') goto yy12;
 	++YYCURSOR;
 	{
 					if (!rFlag)
@@ -437,7 +437,7 @@ yy67:
 	yych = *++YYCURSOR;
 	if (yych != '2') goto yy12;
 	yych = *++YYCURSOR;
-	if (yych != 'c') goto yy12;
+	if (yych != 'j') goto yy12;
 	++YYCURSOR;
 	{
 					if (bUsedYYMaxFill)
@@ -475,7 +475,7 @@ yy75:
 	yych = *++YYCURSOR;
 	if (yych != '2') goto yy12;
 	yych = *++YYCURSOR;
-	if (yych != 'c') goto yy12;
+	if (yych != 'j') goto yy12;
 	++YYCURSOR;
 	{
 					tok = pos = cursor;
@@ -501,7 +501,7 @@ yy88:
 	yych = *++YYCURSOR;
 	if (yych != '2') goto yy12;
 	yych = *++YYCURSOR;
-	if (yych != 'c') goto yy12;
+	if (yych != 'j') goto yy12;
 	++YYCURSOR;
 	{
 					tok = pos = cursor;
@@ -524,7 +524,7 @@ yy99:
 	yych = *++YYCURSOR;
 	if (yych != '2') goto yy12;
 	yych = *++YYCURSOR;
-	if (yych != 'c') goto yy12;
+	if (yych != 'j') goto yy12;
 	++YYCURSOR;
 	{
 					if (bSinglePass)
@@ -1052,7 +1052,7 @@ yy176:
 	if (yych != '2') goto yy165;
 	YYCTXMARKER = YYCURSOR + 1;
 	yych = *++YYCURSOR;
-	if (yych != 'c') goto yy165;
+	if (yych != 'j') goto yy165;
 	YYCTXMARKER = YYCURSOR + 1;
 	yych = *++YYCURSOR;
 	if (yych != ':') goto yy165;

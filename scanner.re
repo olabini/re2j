@@ -27,7 +27,7 @@ extern YYSTYPE yylval;
 namespace re2j
 {
 
-/*!re2j
+/*!re2c
 zero    = "\000";
 any     = [\000-\377];
 dot     = any \ [\n];
@@ -63,7 +63,7 @@ Scanner::ParseMode Scanner::echo()
 
 	tok = cursor;
 echo:
-/*!re2j
+/*!re2c
 	"/*!re2j"	{
 					if (rFlag)
 					{
@@ -241,7 +241,7 @@ scan:
 	{
 		goto value;
 	}
-/*!re2j
+/*!re2c
 	"{"			{
 					depth = 1;
 					goto code;
@@ -444,7 +444,7 @@ scan:
 */
 
 code:
-/*!re2j
+/*!re2c
 	"}"			{
 					if (depth == 0)
 					{
@@ -523,7 +523,7 @@ code:
 */
 
 comment:
-/*!re2j
+/*!re2c
 	"*/"		{
 					if (--depth == 0)
 					{
@@ -562,7 +562,7 @@ comment:
 */
 
 config:
-/*!re2j
+/*!re2c
 	space+		{
 					goto config;
 				}
@@ -577,7 +577,7 @@ config:
 */
 
 value:
-/*!re2j
+/*!re2c
 	number		{
 					cur = cursor;
 					yylval.number = atoi(token().to_string().c_str());
@@ -597,7 +597,7 @@ void Scanner::set_sourceline(char *& cursor)
 {
 sourceline:
 	tok = cursor;
-/*!re2j	
+/*!re2c
 	lineno		{
 					cur = cursor;
 					cline = atoi(token().to_string().c_str());

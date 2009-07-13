@@ -103,7 +103,7 @@
 #line 1 "parser.y"
 
 
-/* $Id: parser.cc 858 2008-04-03 20:53:44Z helly $ */
+/* $Id: parser.y 858 2008-04-03 20:53:44Z helly $ */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
