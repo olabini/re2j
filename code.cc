@@ -1860,7 +1860,7 @@ void DFA::emit(std::ostream &o, uint& ind, const RegExpMap* specMap, const std::
 		{
 			if (bEmitYYCh)
 			{
-				o << indent(ind) << mapCodeName["YYCTYPE"] << " " << mapCodeName["yych"] << ";\n";
+				o << indent(ind) << mapCodeName["YYCTYPE"] << " " << mapCodeName["yych"] << " = (" << mapCodeName["YYCTYPE"] << ") 0;\n";
 			}
 			if (bUsedYYAccept)
 			{
