@@ -30,7 +30,7 @@ bool eFlag = false;
 bool fFlag = false;
 bool FFlag = false;
 bool gFlag = false;
-bool iFlag = false;
+bool iFlag = true;
 bool rFlag = false;
 bool sFlag = false;
 bool tFlag = false;
@@ -62,7 +62,7 @@ bool bUseYYSetStateNaked = false;
 bool bUseYYGetStateNaked = false;
 
 std::string startLabelName;
-std::string labelPrefix("yy");
+std::string labelPrefix("");
 std::string condPrefix("yyc_");
 std::string condEnumPrefix("yyc");
 std::string condDivider("/* *********************************** */");
@@ -78,8 +78,8 @@ uint maxFill = 1;
 uint next_label = 0;
 uint cGotoThreshold = 9;
 
-uint topIndent = 0;
-std::string indString("\t");
+uint topIndent = 2;
+std::string indString("    ");
 bool yybmHexTable = false;
 bool bUseStateAbort = false;
 bool bWroteGetState = false;
