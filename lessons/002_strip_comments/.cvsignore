@@ -1,0 +1,5 @@
+a.out
+*.temp
+*.diff
+*.o
+t.c

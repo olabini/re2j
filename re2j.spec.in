@@ -1,0 +1,52 @@
+Summary:	A tool for generating C-based recognizers from regular expressions
+Name:		@PACKAGE_NAME@
+Version:	@PACKAGE_VERSION@
+Release:	@PACKAGE_RELEASE@
+License:	Public Domain
+Group:		Development/Tools
+URL:		http://re2j.org/
+Source0:	http://prdownloads.sourceforge.net/re2j/re2j-%{version}.tar.gz
+BuildRoot:	%{_tmppath}/%{name}-%{version}-root
+
+%description
+re2j is a great tool for writing fast and flexible lexers. It has
+served many people well for many years and it deserves to be
+maintained more actively. re2j is on the order of 2-3 times faster
+than a flex based scanner, and its input model is much more
+flexible.
+
+%prep
+
+%setup -q
+
+%build
+./configure \
+       --prefix=%{_prefix}
+make re2j
+#regenerate file scanner.cc
+rm -f scanner.cc
+./re2j -b scanner.re > scanner.cc
+rm -f re2j scanner.o
+make
+
+%install
+rm -rf $RPM_BUILD_ROOT
+mkdir -p $RPM_BUILD_ROOT%{_bindir}
+install -m 0755 re2j $RPM_BUILD_ROOT%{_bindir}
+
+mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 0755 re2j.1 $RPM_BUILD_ROOT%{_mandir}/man1 
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%changelog
+* Sun Jan 04 2003 Marcus Boerger <re2j@somabo.de>
+- Initial version.
+
+%files
+%defattr(-,root,root)
+%{_bindir}/re2j
+%{_mandir}/man1/re2j.1*
+
+%doc README examples doc/* lessons
