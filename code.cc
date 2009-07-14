@@ -375,7 +375,7 @@ static void genGoTo(std::ostream &o, uint ind, const State *from, const State *t
 		readCh = false;
 	}
 
-	o << indent(ind) << "gotoPoint = " << labelPrefix << to->label << "; break gotoNext;\n";
+	o << indent(ind) << "{gotoPoint = " << labelPrefix << to->label << "; break gotoNext;}\n";
 	vUsedLabels.insert(to->label);
 }
 
