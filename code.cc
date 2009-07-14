@@ -1871,7 +1871,7 @@ void DFA::emit(std::ostream &o, uint& ind, const RegExpMap* specMap, const std::
 		{
 			o << "\n";
 		}
-			o << indent(ind++) << "while(true) {\n";
+			o << indent(ind++) << "re2jgetout: while(true) {\n";
             o << indent(ind++) << "gotoNext: while(true) {\n";
             o << indent(ind++) << "switch(gotoPoint) {\n";
             o << indent(ind-1) << "case -1: \n";
@@ -1943,7 +1943,7 @@ void DFA::emit(std::ostream &o, uint& ind, const RegExpMap* specMap, const std::
 	if ((!cFlag || isLastCond) && bPrologBrace)
 	{
 		o << indent(--ind) << "}\n";
-		o << indent(--ind) << "}\n";
+		o << indent(--ind) << "break re2jgetout;}\n";
 		o << indent(--ind) << "}\n";
 	}
 
