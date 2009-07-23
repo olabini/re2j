@@ -375,7 +375,7 @@ static void genGoTo(std::ostream &o, uint ind, const State *from, const State *t
 		readCh = false;
 	}
 
-	o << indent(ind) << "{gotoPoint = " << labelPrefix << to->label << "; break gotoNext;}\n";
+	o << indent(ind) << "{gotoPoint = " << labelPrefix << to->label << "; continue gotoNext;}\n";
 	vUsedLabels.insert(to->label);
 }
 
@@ -1871,9 +1871,9 @@ void DFA::emit(std::ostream &o, uint& ind, const RegExpMap* specMap, const std::
 		{
 			o << "\n";
 		}
-			o << indent(ind++) << "re2jgetout: while(true) {\n";
-            o << indent(ind++) << "gotoNext: while(true) {\n";
-            o << indent(ind++) << "switch(gotoPoint) {\n";
+            o << indent(ind++) << "gotoNext: while(gotoPoint != -2) {\n";
+            o << indent(ind) << "int currentGoto = gotoPoint; gotoPoint = -2;\n";
+            o << indent(ind++) << "switch(currentGoto) {\n";
             o << indent(ind-1) << "case -1: \n";
 	}
 	if (bFlag && !cFlag && BitMap::first)
@@ -1924,7 +1924,7 @@ void DFA::emit(std::ostream &o, uint& ind, const RegExpMap* specMap, const std::
 	if (vUsedLabels.count(start_label+1))
 	{
 		vUsedLabels.insert(start_label);
-		o << indent(ind) << "gotoPoint = " << labelPrefix << start_label << "; break gotoNext;\n";
+		o << indent(ind) << "gotoPoint = " << labelPrefix << start_label << "; continue gotoNext;\n";
 	}
 
 	// Generate code
@@ -1943,7 +1943,6 @@ void DFA::emit(std::ostream &o, uint& ind, const RegExpMap* specMap, const std::
 	if ((!cFlag || isLastCond) && bPrologBrace)
 	{
 		o << indent(--ind) << "}\n";
-		o << indent(--ind) << "break re2jgetout;}\n";
 		o << indent(--ind) << "}\n";
 	}
 
@@ -1963,11 +1962,11 @@ static void genGetStateGotoSub(std::ostream &o, uint ind, uint start_label, int 
 	{
 		if (cMin == -1)
 		{
-			o << indent(ind) << "gotoPoint = " << labelPrefix << start_label << "; break gotoNext;\n";
+			o << indent(ind) << "gotoPoint = " << labelPrefix << start_label << "; continue gotoNext;\n";
 		}
 		else
 		{
-			o << indent(ind) << "gotoPoint = " << mapCodeName["yyFillLabel"] << cMin << "; break gotoNext;\n";
+			o << indent(ind) << "gotoPoint = " << mapCodeName["yyFillLabel"] << cMin << "; continue gotoNext;\n";
 		}
 	}
 	else
@@ -2008,7 +2007,7 @@ void genGetStateGoto(std::ostream &o, uint& ind, uint start_label)
 			{
 				o << " < 0) {\n";
 			}
-			o << indent(++ind) << "gotoPoint = " << labelPrefix << start_label << "; break gotoNext;\n";
+			o << indent(++ind) << "gotoPoint = " << labelPrefix << start_label << "; continue gotoNext;\n";
 			if (bUseStateAbort)
 			{
 				o << indent(--ind) << "} else if (" << genGetState() << " < -1) {\n";
@@ -2032,16 +2031,16 @@ void genGetStateGoto(std::ostream &o, uint& ind, uint start_label)
 			if (bUseStateAbort)
 			{
 				o << indent(ind) << "default: abort();\n";
-				o << indent(ind) << "case -1: gotoPoint = " << labelPrefix << start_label << "; break gotoNext;\n";
+				o << indent(ind) << "case -1: gotoPoint = " << labelPrefix << start_label << "; continue gotoNext;\n";
 			}
 			else
 			{
-				o << indent(ind) << "default: gotoPoint = " << labelPrefix << start_label << "; break gotoNext;\n";
+				o << indent(ind) << "default: gotoPoint = " << labelPrefix << start_label << "; continue gotoNext;\n";
 			}
 	
 			for (size_t i=0; i<last_fill_index; ++i)
 			{
-				o << indent(ind) << "case " << i << ": gotoPoint = " << mapCodeName["yyFillLabel"] << i << "; break gotoNext;\n";
+				o << indent(ind) << "case " << i << ": gotoPoint = " << mapCodeName["yyFillLabel"] << i << "; continue gotoNext;\n";
 			}
 	
 			o << indent(ind) << "}\n";
@@ -2079,7 +2078,7 @@ static void genCondGotoSub(std::ostream &o, uint ind, RegExpIndices& vCondList, 
 {
 	if (cMin == cMax)
 	{
-		o << indent(ind) << "gotoPoint = " << condPrefix << vCondList[cMin] << "; break gotoNext;\n";
+		o << indent(ind) << "gotoPoint = " << condPrefix << vCondList[cMin] << "; continue gotoNext;\n";
 	}
 	else
 	{
@@ -2126,7 +2125,7 @@ void genCondGoto(std::ostream &o, uint ind, const RegExpMap& specMap)
 	
 				for(RegExpMap::const_iterator it = specMap.begin(); it != specMap.end(); ++it)
 				{
-					o << indent(ind) << "case " << condEnumPrefix << it->first << ": gotoPoint = " << condPrefix << it->first << "; break gotoNext;\n";
+					o << indent(ind) << "case " << condEnumPrefix << it->first << ": gotoPoint = " << condPrefix << it->first << "; continue gotoNext;\n";
 				}
 				o << indent(ind) << "}\n";
 			}
